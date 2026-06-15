@@ -1,0 +1,76 @@
+<div class="orders-page container">
+  <div class="orders-header">
+    <div>
+      <h1><span class="material-icons">receipt_long</span> Mis Pedidos</h1>
+      <p>Historial y seguimiento de tus pedidos</p>
+    </div>
+    <a routerLink="/marketplace" class="btn btn-primary">
+      <span class="material-icons">add_shopping_cart</span> Nuevo Pedido
+    </a>
+  </div>
+
+  <!-- Filter Tabs -->
+  <div class="filter-tabs">
+    @for (filter of filters; track filter.value) {
+      <button class="filter-tab" [class.active]="selectedFilter === filter.value"
+        (click)="selectedFilter = filter.value">
+        {{ filter.label }}
+      </button>
+    }
+  </div>
+
+  @if (loading) {
+    <div class="orders-list">
+      @for (i of [1,2,3]; track i) {
+        <div class="skeleton" style="height: 120px; border-radius: var(--radius-lg); margin-bottom: var(--space-4)"></div>
+      }
+    </div>
+  } @else if (filteredOrders.length === 0) {
+    <div class="empty-state">
+      <span class="material-icons">inbox</span>
+      <h3>No hay pedidos</h3>
+      <p>{{ selectedFilter === 'todos' ? 'Aún no tienes pedidos. ¡Explora nuestro marketplace!' : 'No tienes pedidos con este estado.' }}</p>
+      <a routerLink="/marketplace" class="btn btn-primary btn-lg">Explorar Productos</a>
+    </div>
+  } @else {
+    <div class="orders-list">
+      @for (order of filteredOrders; track order.id) {
+        <a [routerLink]="['/pedido', order.id]" class="order-card card">
+          <div class="order-icon-col">
+            <div class="order-icon" [class]="'status-' + order.status">
+              <span class="material-icons">{{ getStatusIcon(order.status) }}</span>
+            </div>
+          </div>
+          <div class="order-main">
+            <div class="order-top-row">
+              <h3>Pedido #{{ order.id }}</h3>
+              <span class="badge {{ getStatusClass(order.status) }}">{{ order.statusLabel }}</span>
+            </div>
+            <div class="order-meta">
+              <span><span class="material-icons">person</span> {{ order.buyerName }}</span>
+              <span><span class="material-icons">calendar_today</span> {{ order.createdAt }}</span>
+              <span><span class="material-icons">payment</span> {{ order.paymentMethod }}</span>
+            </div>
+            <div class="order-timeline-mini">
+              @for (step of order.timeline; track step.status) {
+                <div class="mini-step" [class.completed]="step.completed">
+                  <div class="mini-dot"></div>
+                  @if (!$last) { <div class="mini-line"></div> }
+                </div>
+              }
+            </div>
+          </div>
+          <div class="order-total-col">
+            <span class="order-total">S/ {{ order.total.toFixed(2) }}</span>
+            <span class="order-delivery">
+              @if (order.status !== 'cancelado' && order.estimatedDelivery !== '-') {
+                Entrega est.: {{ order.estimatedDelivery }}
+              }
+            </span>
+            <span class="view-order-link">Ver detalle <span class="material-icons">arrow_forward</span></span>
+          </div>
+        </a>
+      }
+    </div>
+  }
+</div>

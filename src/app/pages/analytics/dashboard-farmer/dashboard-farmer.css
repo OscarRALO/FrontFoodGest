@@ -1,0 +1,96 @@
+.dashboard-page { padding: var(--space-8) var(--container-padding); }
+
+.dashboard-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: var(--space-6); flex-wrap: wrap; gap: var(--space-3);
+}
+.dashboard-header h1 { font-size: 1.5rem; margin-bottom: var(--space-1); }
+.dashboard-header p { font-size: 0.9375rem; color: var(--color-text-secondary); }
+
+/* KPIs */
+.kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); margin-bottom: var(--space-6); }
+.kpi-card {
+  display: flex; align-items: center; gap: var(--space-4); padding: var(--space-5);
+}
+.kpi-card:hover { transform: translateY(-2px); }
+.kpi-icon {
+  width: 52px; height: 52px; border-radius: var(--radius-md);
+  background: linear-gradient(135deg, #E8F5E9, #C8E6C9);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.kpi-icon .material-icons { font-size: 26px; color: var(--color-primary); }
+.kpi-label { font-size: 0.8125rem; color: var(--color-text-secondary); display: block; }
+.kpi-value { font-size: 1.5rem; font-weight: var(--font-weight-bold); display: block; margin: 2px 0; }
+.kpi-change {
+  font-size: 0.75rem; font-weight: var(--font-weight-semibold);
+  display: inline-flex; align-items: center; gap: 2px;
+}
+.kpi-change .material-icons { font-size: 14px; }
+.kpi-change.positive { color: var(--color-success); }
+.kpi-change.negative { color: var(--color-error); }
+
+.dashboard-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: var(--space-6); margin-bottom: var(--space-6); }
+
+/* Bar Chart */
+.chart-card { padding: var(--space-6); }
+.chart-card h3 { font-size: 1.0625rem; margin-bottom: var(--space-6); }
+.bar-chart {
+  display: flex; align-items: flex-end; justify-content: space-around;
+  height: 220px; padding-top: var(--space-4);
+}
+.bar-col {
+  display: flex; flex-direction: column; align-items: center; gap: var(--space-2);
+  flex: 1;
+}
+.bar-value { font-size: 0.6875rem; color: var(--color-text-secondary); font-weight: var(--font-weight-medium); }
+.bar {
+  width: 36px; border-radius: 4px 4px 0 0;
+  background: linear-gradient(to top, var(--color-primary), var(--color-secondary));
+  transition: height 0.6s ease;
+  min-height: 4px;
+}
+.bar-label { font-size: 0.75rem; color: var(--color-text-secondary); font-weight: var(--font-weight-medium); }
+
+/* Ranking */
+.ranking-card { padding: var(--space-6); }
+.ranking-card h3 { font-size: 1.0625rem; margin-bottom: var(--space-5); }
+.ranking-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+.ranking-table th {
+  text-align: left; padding: var(--space-2) var(--space-3);
+  border-bottom: 2px solid var(--color-border); font-size: 0.75rem;
+  color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: 0.5px;
+}
+.ranking-table td { padding: var(--space-3); border-bottom: 1px solid var(--color-border); }
+.rank-num { font-weight: var(--font-weight-bold); color: var(--color-primary); }
+.rank-name { font-weight: var(--font-weight-medium); }
+.rank-revenue { font-weight: var(--font-weight-semibold); color: var(--color-primary); }
+.trend { display: inline-flex; }
+.trend .material-icons { font-size: 18px; }
+.trend-up { color: var(--color-success); }
+.trend-down { color: var(--color-error); }
+.trend-stable { color: var(--color-text-secondary); }
+
+/* Orders */
+.orders-card { padding: var(--space-6); }
+.orders-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-5); }
+.orders-header h3 { font-size: 1.0625rem; }
+.orders-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+.orders-table th {
+  text-align: left; padding: var(--space-2) var(--space-3);
+  border-bottom: 2px solid var(--color-border); font-size: 0.75rem;
+  color: var(--color-text-secondary); text-transform: uppercase;
+}
+.orders-table td { padding: var(--space-3); border-bottom: 1px solid var(--color-border); }
+.order-link { color: var(--color-primary); font-weight: var(--font-weight-semibold); }
+.order-total { font-weight: var(--font-weight-semibold); }
+
+@media (max-width: 767px) {
+  .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+  .dashboard-grid { grid-template-columns: 1fr; }
+  .orders-table { font-size: 0.8125rem; }
+  .bar { width: 24px; }
+}
+
+@media (min-width: 768px) and (max-width: 1279px) {
+  .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+}

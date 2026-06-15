@@ -1,0 +1,131 @@
+<div class="home-page">
+  <!-- Hero Section -->
+  <section class="hero" id="hero-section">
+    <div class="hero-bg"></div>
+    <div class="hero-content container">
+      <div class="hero-text">
+        <span class="hero-badge">🌾 Marketplace Agrícola #1 del Perú</span>
+        <h1>Del Campo <span class="text-highlight">a Tu Mesa</span></h1>
+        <p class="hero-subtitle">Conectamos productores agrícolas con compradores. Productos frescos, precios justos y entrega directa desde las mejores parcelas del Perú.</p>
+        <div class="hero-actions">
+          <a routerLink="/registro-agricultor" class="btn btn-accent btn-lg" id="hero-register-btn">
+            <span class="material-icons">person_add</span> Registrarse
+          </a>
+          <a routerLink="/marketplace" class="btn btn-secondary btn-lg" id="hero-explore-btn" style="border-color:#fff; color:#fff;">
+            <span class="material-icons">storefront</span> Explorar Productos
+          </a>
+        </div>
+        <div class="hero-stats">
+          @for (stat of stats; track stat.label) {
+            <div class="hero-stat">
+              <strong>{{ stat.value }}{{ stat.suffix }}</strong>
+              <span>{{ stat.label }}</span>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team Members Section -->
+  <section class="section team-section" id="team-section">
+    <div class="container">
+      <h2 class="section-title">Nuestro Equipo</h2>
+      <p class="section-subtitle">Los integrantes detrás de AgroMarket</p>
+      <div class="team-grid">
+        @for (member of teamMembers; track member.name) {
+          <div class="team-card card">
+            <div class="team-avatar" [style.background]="member.color">
+              <span>{{ member.initials }}</span>
+            </div>
+            <h4 class="team-name">{{ member.name }}</h4>
+            <p class="team-role">{{ member.role }}</p>
+            <div class="team-social">
+              <span class="material-icons">email</span>
+              <span class="material-icons">public</span>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Benefits Section -->
+  <section class="section benefits-section" id="benefits-section">
+    <div class="container">
+      <h2 class="section-title">¿Por qué AgroMarket?</h2>
+      <p class="section-subtitle">Beneficios que hacen la diferencia para productores y compradores</p>
+      <div class="benefits-grid">
+        @for (benefit of benefits; track benefit.title) {
+          <div class="benefit-card card-flat">
+            <div class="benefit-icon">
+              <span class="material-icons">{{ benefit.icon }}</span>
+            </div>
+            <h3>{{ benefit.title }}</h3>
+            <p>{{ benefit.desc }}</p>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- How it Works -->
+  <section class="section steps-section" id="how-it-works-section">
+    <div class="container">
+      <h2 class="section-title">¿Cómo Funciona?</h2>
+      <p class="section-subtitle">En solo 3 pasos empieza a comprar productos frescos</p>
+      <div class="steps-grid">
+        @for (step of steps; track step.number) {
+          <div class="step-card">
+            <div class="step-number">{{ step.number }}</div>
+            <div class="step-icon">
+              <span class="material-icons">{{ step.icon }}</span>
+            </div>
+            <h3>{{ step.title }}</h3>
+            <p>{{ step.desc }}</p>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Products -->
+  <section class="section products-section" id="featured-products-section">
+    <div class="container">
+      <h2 class="section-title">Productos Destacados</h2>
+      <p class="section-subtitle">Los productos más populares de nuestros productores</p>
+      @if (loading) {
+        <div class="products-grid">
+          @for (i of [1,2,3,4]; track i) {
+            <div class="skeleton skeleton-card"></div>
+          }
+        </div>
+      } @else {
+        <div class="products-grid">
+          @for (product of featuredProducts; track product.id) {
+            <app-product-card [product]="product" />
+          }
+        </div>
+      }
+      <div class="text-center" style="margin-top: var(--space-10)">
+        <a routerLink="/marketplace" class="btn btn-primary btn-lg" id="view-all-products-btn">
+          Ver Todos los Productos <span class="material-icons">arrow_forward</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section" id="cta-section">
+    <div class="container">
+      <div class="cta-card">
+        <h2>¿Eres Productor Agrícola?</h2>
+        <p>Únete a nuestra plataforma y vende tus productos directamente a compradores en todo el Perú. Sin intermediarios.</p>
+        <div class="cta-actions">
+          <a routerLink="/registro-agricultor" class="btn btn-accent btn-lg">Registrarme como Productor</a>
+          <a routerLink="/registro-comprador" class="btn btn-secondary btn-lg" style="border-color:#fff; color:#fff;">Registrarme como Comprador</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

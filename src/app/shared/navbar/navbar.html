@@ -1,0 +1,92 @@
+<nav class="navbar" id="main-navbar">
+  <div class="navbar-container">
+    <a routerLink="/" class="navbar-brand" (click)="closeMobileMenu()">
+      <span class="material-icons brand-icon">eco</span>
+      <span class="brand-text">AgroMarket</span>
+    </a>
+
+    <div class="navbar-links" [class.active]="mobileMenuOpen">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="closeMobileMenu()">Inicio</a>
+      <a routerLink="/marketplace" routerLinkActive="active" (click)="closeMobileMenu()">Marketplace</a>
+
+      @if (authService.isLoggedIn()) {
+        <a routerLink="/pedidos" routerLinkActive="active" (click)="closeMobileMenu()">Mis Pedidos</a>
+      }
+      @if (authService.isProductor()) {
+        <a routerLink="/dashboard" routerLinkActive="active" (click)="closeMobileMenu()">Mi Dashboard</a>
+      }
+      @if (authService.isAdmin()) {
+        <a routerLink="/admin" routerLinkActive="active" (click)="closeMobileMenu()">Admin</a>
+      }
+
+      <div class="navbar-links-mobile-auth">
+        @if (authService.isLoggedIn()) {
+          <a routerLink="/perfil" class="mobile-link" (click)="closeMobileMenu()">
+            <span class="material-icons">person</span> Mi Perfil
+          </a>
+          <a routerLink="/carrito" class="mobile-link" (click)="closeMobileMenu()">
+            <span class="material-icons">shopping_cart</span> Carrito
+            @if (orderService.cartCount() > 0) {
+              <span class="badge-inline">{{ orderService.cartCount() }}</span>
+            }
+          </a>
+          <button class="mobile-logout" (click)="logout()">
+            <span class="material-icons">logout</span> Cerrar Sesión
+          </button>
+        } @else {
+          <a routerLink="/login" class="mobile-link" (click)="closeMobileMenu()">Iniciar Sesión</a>
+          <a routerLink="/registro-agricultor" class="mobile-link accent" (click)="closeMobileMenu()">Registrarse</a>
+        }
+      </div>
+    </div>
+
+    <div class="navbar-actions">
+      @if (authService.isLoggedIn()) {
+        <a routerLink="/carrito" class="cart-btn" id="cart-button">
+          <span class="material-icons">shopping_cart</span>
+          @if (orderService.cartCount() > 0) {
+            <span class="cart-badge">{{ orderService.cartCount() }}</span>
+          }
+        </a>
+        <div class="user-menu">
+          <button class="user-avatar" id="user-menu-button">
+            <span class="material-icons">person</span>
+          </button>
+          <div class="user-dropdown">
+            <div class="user-info">
+              <strong>{{ authService.currentUser()?.name }}</strong>
+              <span>{{ authService.currentUser()?.email }}</span>
+            </div>
+            <hr />
+            <a routerLink="/perfil">
+              <span class="material-icons">person</span> Mi Perfil
+            </a>
+            <a routerLink="/pedidos">
+              <span class="material-icons">receipt_long</span> Mis Pedidos
+            </a>
+            @if (authService.isProductor()) {
+              <a routerLink="/dashboard">
+                <span class="material-icons">dashboard</span> Dashboard
+              </a>
+            }
+            @if (authService.isAdmin()) {
+              <a routerLink="/admin">
+                <span class="material-icons">admin_panel_settings</span> Admin
+              </a>
+            }
+            <hr />
+            <button (click)="logout()">
+              <span class="material-icons">logout</span> Cerrar Sesión
+            </button>
+          </div>
+        </div>
+      } @else {
+        <a routerLink="/login" class="btn btn-secondary btn-sm">Iniciar Sesión</a>
+        <a routerLink="/registro-agricultor" class="btn btn-primary btn-sm">Registrarse</a>
+      }
+      <button class="hamburger" (click)="toggleMobileMenu()" id="hamburger-menu">
+        <span class="material-icons">{{ mobileMenuOpen ? 'close' : 'menu' }}</span>
+      </button>
+    </div>
+  </div>
+</nav>

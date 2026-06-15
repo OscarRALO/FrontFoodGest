@@ -1,0 +1,97 @@
+.profile-hero-banner {
+  background: linear-gradient(135deg, #1B5E20, #2E7D32, #43A047);
+  padding: var(--space-12) 0;
+  color: #fff;
+}
+
+.profile-hero-content {
+  display: flex; align-items: center; gap: var(--space-6);
+}
+
+.profile-big-avatar {
+  width: 110px; height: 110px; border-radius: var(--radius-full);
+  background: rgba(255,255,255,0.2); backdrop-filter: blur(8px);
+  border: 3px solid rgba(255,255,255,0.3);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2.75rem; font-weight: var(--font-weight-bold);
+  flex-shrink: 0;
+}
+
+.profile-hero-info h1 { color: #fff; font-size: 1.75rem; margin-bottom: var(--space-2); }
+.profile-role-badge { margin-bottom: var(--space-2); }
+.profile-hero-email { opacity: 0.85; font-size: 0.9375rem; }
+
+.profile-body { padding: var(--space-8) var(--container-padding); }
+
+.alert-success-bar {
+  display: flex; align-items: center; gap: var(--space-2);
+  padding: var(--space-3) var(--space-4); border-radius: var(--radius-sm);
+  background: #E8F5E9; color: var(--color-success);
+  font-weight: var(--font-weight-medium); font-size: 0.9375rem;
+  margin-bottom: var(--space-6);
+  animation: slideDown 0.3s ease;
+}
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.profile-grid {
+  display: grid; grid-template-columns: 1fr 320px; gap: var(--space-6); align-items: start;
+}
+
+.info-card { padding: var(--space-6); margin-bottom: var(--space-5); }
+
+.card-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: var(--space-6);
+}
+.card-header h2 {
+  display: flex; align-items: center; gap: var(--space-2);
+  font-size: 1.125rem; margin: 0;
+}
+.card-header h2 .material-icons { color: var(--color-primary); font-size: 22px; }
+
+.info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); }
+.info-item { }
+.info-label { display: block; font-size: 0.75rem; color: var(--color-text-secondary); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px; font-weight: var(--font-weight-medium); }
+.info-value { font-size: 0.9375rem; font-weight: var(--font-weight-medium); }
+
+.edit-form { display: flex; flex-direction: column; gap: var(--space-4); }
+.form-actions { display: flex; gap: var(--space-3); margin-top: var(--space-2); }
+
+.security-section { display: flex; flex-direction: column; gap: var(--space-4); }
+.security-item {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: var(--space-4); background: var(--color-background);
+  border-radius: var(--radius-sm);
+}
+.security-item strong { font-size: 0.9375rem; display: block; margin-bottom: 2px; }
+.security-item p { font-size: 0.8125rem; color: var(--color-text-secondary); margin: 0; }
+
+/* Sidebar */
+.quick-links { padding: var(--space-5); margin-bottom: var(--space-4); }
+.quick-links h3 { font-size: 1rem; margin-bottom: var(--space-4); }
+
+.quick-link {
+  display: flex; align-items: center; gap: var(--space-3);
+  padding: var(--space-3); border-radius: var(--radius-sm);
+  font-size: 0.9375rem; font-weight: var(--font-weight-medium);
+  color: var(--color-text); transition: all var(--transition-base);
+}
+.quick-link:hover { background: var(--color-surface-hover); color: var(--color-primary); }
+.quick-link .material-icons { font-size: 20px; color: var(--color-text-secondary); }
+.quick-link:hover .material-icons { color: var(--color-primary); }
+.quick-link span:nth-child(2) { flex: 1; }
+.quick-link .arrow { font-size: 18px; opacity: 0; transition: opacity var(--transition-base); }
+.quick-link:hover .arrow { opacity: 1; }
+
+.danger-zone { padding: var(--space-5); }
+.danger-zone h3 { font-size: 1rem; margin-bottom: var(--space-4); color: var(--color-error); }
+
+@media (max-width: 767px) {
+  .profile-hero-content { flex-direction: column; text-align: center; }
+  .profile-grid { grid-template-columns: 1fr; }
+  .info-grid { grid-template-columns: 1fr; }
+  .security-item { flex-direction: column; gap: var(--space-3); align-items: flex-start; }
+}

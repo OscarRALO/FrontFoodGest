@@ -1,0 +1,45 @@
+<a [routerLink]="['/producto', product().id]" class="product-card card" [id]="'product-card-' + product().id">
+  <div class="product-image">
+    <div class="product-image-placeholder">
+      <span class="material-icons">image</span>
+      <span class="image-label">{{ product().name }}</span>
+    </div>
+    @if (product().organic) {
+      <span class="organic-badge">
+        <span class="material-icons">eco</span> Orgánico
+      </span>
+    }
+    @if (product().featured) {
+      <span class="featured-badge">
+        <span class="material-icons">star</span> Destacado
+      </span>
+    }
+  </div>
+  <div class="product-info">
+    <span class="product-category">{{ product().category }}</span>
+    <h3 class="product-name">{{ product().name }}</h3>
+    <div class="product-producer">
+      <span class="material-icons">person</span>
+      <span>{{ product().producerName }}</span>
+      <span class="producer-location">· {{ product().producerLocation }}</span>
+    </div>
+    <div class="product-rating">
+      <div class="stars">
+        @for (_ of getStars(product().rating); track $index) {
+          <span class="material-icons">star</span>
+        }
+        @for (_ of getEmptyStars(product().rating); track $index) {
+          <span class="material-icons">star_border</span>
+        }
+      </div>
+      <span class="rating-text">{{ product().rating }} ({{ product().reviewCount }})</span>
+    </div>
+    <div class="product-footer">
+      <div class="product-price">
+        <span class="price-amount">S/ {{ product().price.toFixed(2) }}</span>
+        <span class="price-unit">/ {{ product().unit }}</span>
+      </div>
+      <span class="view-btn">Ver más →</span>
+    </div>
+  </div>
+</a>

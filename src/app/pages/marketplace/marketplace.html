@@ -1,0 +1,90 @@
+<div class="marketplace-page">
+  <div class="marketplace-header">
+    <div class="container">
+      <h1>Marketplace</h1>
+      <p>Explora productos frescos directamente de productores</p>
+      <div class="search-bar" id="search-bar">
+        <span class="material-icons">search</span>
+        <input type="text" placeholder="Buscar productos, categorías, productores..."
+          [(ngModel)]="searchQuery" (input)="onSearch()" id="search-input" />
+        <button class="filter-toggle-btn" (click)="toggleFilters()">
+          <span class="material-icons">tune</span> Filtros
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="marketplace-content container">
+    <aside class="filters-sidebar" [class.active]="showFilters" id="filters-sidebar">
+      <div class="filters-header">
+        <h3><span class="material-icons">filter_list</span> Filtros</h3>
+        <button class="clear-btn" (click)="clearFilters()">Limpiar</button>
+      </div>
+
+      <div class="filter-group">
+        <label class="filter-label">Categoría</label>
+        <select class="form-input" [(ngModel)]="selectedCategory" (change)="applyFilters()">
+          <option value="">Todas las categorías</option>
+          @for (cat of categories; track cat) {
+            <option [value]="cat">{{ cat }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label class="filter-label">Ubicación</label>
+        <select class="form-input" [(ngModel)]="selectedLocation" (change)="applyFilters()">
+          <option value="">Todas las ubicaciones</option>
+          @for (loc of locations; track loc) {
+            <option [value]="loc">{{ loc }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label class="filter-label">Calificación mínima</label>
+        <select class="form-input" [(ngModel)]="minRating" (change)="applyFilters()">
+          <option [ngValue]="0">Todas</option>
+          <option [ngValue]="4">4+ estrellas</option>
+          <option [ngValue]="4.5">4.5+ estrellas</option>
+          <option [ngValue]="4.8">4.8+ estrellas</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label class="checkbox-filter">
+          <input type="checkbox" [(ngModel)]="onlyOrganic" (change)="applyFilters()" />
+          <span class="material-icons check-icon">eco</span>
+          Solo Orgánicos
+        </label>
+      </div>
+
+      <div class="active-filters">
+        <span class="results-count">{{ filteredProducts.length }} productos encontrados</span>
+      </div>
+    </aside>
+
+    <main class="products-area">
+      @if (loading) {
+        <div class="products-grid">
+          @for (i of [1,2,3,4,5,6]; track i) {
+            <div class="skeleton skeleton-card"></div>
+          }
+        </div>
+      } @else if (filteredProducts.length === 0) {
+        <div class="empty-state">
+          <span class="material-icons">search_off</span>
+          <h3>No se encontraron productos</h3>
+          <p>Intenta con otros filtros o términos de búsqueda</p>
+          <button class="btn btn-primary" (click)="clearFilters()">Limpiar filtros</button>
+        </div>
+      } @else {
+        <div class="products-grid">
+          @for (product of filteredProducts; track product.id) {
+            <app-product-card [product]="product" />
+          }
+        </div>
+      }
+    </main>
+  </div>
+</div>

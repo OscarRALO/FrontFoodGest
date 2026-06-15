@@ -1,0 +1,140 @@
+<div class="register-page">
+  <div class="register-container">
+    <div class="register-card card">
+      <div class="register-header">
+        <span class="material-icons">agriculture</span>
+        <h1>Registro Agricultor</h1>
+        <p>Únete como productor y vende directamente</p>
+      </div>
+
+      <!-- Progress Steps -->
+      <div class="stepper">
+        @for (step of [1,2,3,4]; track step) {
+          <div class="step" [class.active]="currentStep >= step" [class.current]="currentStep === step">
+            <div class="step-circle">{{ step }}</div>
+            <span class="step-label">
+              @switch (step) {
+                @case (1) { Datos }
+                @case (2) { Ubicación }
+                @case (3) { Documentos }
+                @case (4) { Confirmar }
+              }
+            </span>
+          </div>
+          @if (step < 4) { <div class="step-line" [class.active]="currentStep > step"></div> }
+        }
+      </div>
+
+      @if (success) {
+        <div class="success-state">
+          <div class="success-icon">
+            <span class="material-icons">check_circle</span>
+          </div>
+          <h2>¡Registro Exitoso!</h2>
+          <p>Tu cuenta está pendiente de aprobación. Te notificaremos cuando sea verificada.</p>
+          <div class="pending-badge badge badge-warning">
+            <span class="material-icons" style="font-size:16px">hourglass_top</span>
+            Estado: Pendiente de Aprobación
+          </div>
+          <a routerLink="/login" class="btn btn-primary btn-lg" style="margin-top: var(--space-6)">Ir a Iniciar Sesión</a>
+        </div>
+      } @else {
+        <form (ngSubmit)="nextStep()" id="register-farmer-form">
+          <!-- Step 1: Personal Data -->
+          @if (currentStep === 1) {
+            <div class="step-content">
+              <h3>Datos Personales</h3>
+              <div class="form-group">
+                <label class="form-label">Nombre completo</label>
+                <input class="form-input" type="text" [(ngModel)]="name" name="name" placeholder="Juan Pérez" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Correo electrónico</label>
+                <input class="form-input" type="email" [(ngModel)]="email" name="email" placeholder="tu@correo.com" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Teléfono</label>
+                <input class="form-input" type="tel" [(ngModel)]="phone" name="phone" placeholder="+51 987 654 321" />
+              </div>
+              <div class="form-row-2">
+                <div class="form-group">
+                  <label class="form-label">Contraseña</label>
+                  <input class="form-input" type="password" [(ngModel)]="password" name="password" placeholder="••••••••" required />
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Confirmar contraseña</label>
+                  <input class="form-input" type="password" [(ngModel)]="confirmPassword" name="confirmPassword" placeholder="••••••••" required />
+                </div>
+              </div>
+            </div>
+          }
+
+          <!-- Step 2: Location -->
+          @if (currentStep === 2) {
+            <div class="step-content">
+              <h3>Ubicación de la Parcela</h3>
+              <div class="form-group">
+                <label class="form-label">Departamento</label>
+                <select class="form-input" [(ngModel)]="department" name="department" required>
+                  <option value="">Seleccionar departamento</option>
+                  @for (dep of departments; track dep) {
+                    <option [value]="dep">{{ dep }}</option>
+                  }
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Provincia</label>
+                <input class="form-input" type="text" [(ngModel)]="province" name="province" placeholder="Provincia" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Dirección de la parcela</label>
+                <input class="form-input" type="text" [(ngModel)]="address" name="address" placeholder="Dirección completa" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Tamaño de parcela (hectáreas)</label>
+                <input class="form-input" type="number" [(ngModel)]="parcelSize" name="parcelSize" placeholder="Ej: 5" />
+              </div>
+            </div>
+          }
+
+          <!-- Step 3: Documents -->
+          @if (currentStep === 3) {
+            <div class="step-content">
+              <h3>Carga de Documentos</h3>
+              <div class="upload-area" (click)="dniInput.click()">
+                <input #dniInput type="file" hidden (change)="onFileSelected($event, 'dni')" />
+                <span class="material-icons">upload_file</span>
+                <p>{{ dniFile || 'DNI o documento de identidad' }}</p>
+                <span class="upload-hint">Click para seleccionar archivo</span>
+              </div>
+              <div class="upload-area" (click)="farmInput.click()">
+                <input #farmInput type="file" hidden (change)="onFileSelected($event, 'farm')" />
+                <span class="material-icons">description</span>
+                <p>{{ farmDoc || 'Certificado de propiedad / uso de tierra' }}</p>
+                <span class="upload-hint">Click para seleccionar archivo</span>
+              </div>
+            </div>
+          }
+
+          <!-- Navigation -->
+          <div class="form-actions">
+            @if (currentStep > 1 && !success) {
+              <button type="button" class="btn btn-secondary" (click)="prevStep()">
+                <span class="material-icons">arrow_back</span> Anterior
+              </button>
+            }
+            @if (currentStep < totalSteps) {
+              <button type="submit" class="btn btn-primary btn-lg" style="margin-left: auto;">
+                Siguiente <span class="material-icons">arrow_forward</span>
+              </button>
+            }
+          </div>
+        </form>
+      }
+
+      <div class="register-footer">
+        <p>¿Ya tienes una cuenta? <a routerLink="/login">Iniciar Sesión</a></p>
+      </div>
+    </div>
+  </div>
+</div>

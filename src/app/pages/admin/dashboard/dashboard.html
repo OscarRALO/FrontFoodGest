@@ -1,0 +1,96 @@
+<div class="admin-page container">
+  <div class="admin-header">
+    <h1><span class="material-icons">admin_panel_settings</span> Panel de Administración</h1>
+    <p>Gestiona la plataforma AgroMarket</p>
+  </div>
+
+  @if (stats) {
+    <!-- Stats -->
+    <div class="stats-grid">
+      <div class="stat-card card">
+        <span class="material-icons stat-icon">people</span>
+        <div class="stat-value">{{ stats.totalUsers }}</div>
+        <div class="stat-label">Usuarios Totales</div>
+      </div>
+      <div class="stat-card card">
+        <span class="material-icons stat-icon">inventory_2</span>
+        <div class="stat-value">{{ stats.totalProducts }}</div>
+        <div class="stat-label">Productos</div>
+      </div>
+      <div class="stat-card card">
+        <span class="material-icons stat-icon">shopping_cart</span>
+        <div class="stat-value">{{ stats.totalOrders }}</div>
+        <div class="stat-label">Pedidos Totales</div>
+      </div>
+      <div class="stat-card card">
+        <span class="material-icons stat-icon">account_balance_wallet</span>
+        <div class="stat-value">S/ {{ stats.totalRevenue.toLocaleString() }}</div>
+        <div class="stat-label">Ingresos Totales</div>
+      </div>
+      <div class="stat-card card">
+        <span class="material-icons stat-icon">agriculture</span>
+        <div class="stat-value">{{ stats.activeProducers }}</div>
+        <div class="stat-label">Productores Activos</div>
+      </div>
+      <div class="stat-card card highlight">
+        <span class="material-icons stat-icon">pending_actions</span>
+        <div class="stat-value">{{ stats.pendingApprovals }}</div>
+        <div class="stat-label">Pendientes de Aprobación</div>
+      </div>
+    </div>
+  }
+
+  <!-- Pending Approvals -->
+  @if (pendingUsers.length > 0) {
+    <div class="pending-section card">
+      <h2><span class="material-icons">hourglass_top</span> Pendientes de Aprobación</h2>
+      <div class="pending-list">
+        @for (user of pendingUsers; track user.id) {
+          <div class="pending-item">
+            <div class="pending-avatar">{{ user.name.charAt(0) }}</div>
+            <div class="pending-info">
+              <strong>{{ user.name }}</strong>
+              <span>{{ user.email }} · {{ user.location || 'Sin ubicación' }}</span>
+            </div>
+            <div class="pending-actions">
+              <button class="btn btn-primary btn-sm" (click)="approveUser(user)">
+                <span class="material-icons">check</span> Aprobar
+              </button>
+              <button class="btn btn-sm" style="background:#FFEBEE; color:var(--color-error)">
+                <span class="material-icons">close</span> Rechazar
+              </button>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  }
+
+  <!-- Producers Table -->
+  <div class="table-section card">
+    <h2><span class="material-icons">groups</span> Productores Registrados</h2>
+    <div class="table-wrapper">
+      <table class="admin-table">
+        <thead>
+          <tr><th>Nombre</th><th>Email</th><th>Teléfono</th><th>Ubicación</th><th>Estado</th></tr>
+        </thead>
+        <tbody>
+          @for (user of allUsers; track user.id) {
+            <tr>
+              <td>
+                <div class="user-cell">
+                  <div class="user-cell-avatar">{{ user.name.charAt(0) }}</div>
+                  <strong>{{ user.name }}</strong>
+                </div>
+              </td>
+              <td>{{ user.email }}</td>
+              <td>{{ user.phone || '-' }}</td>
+              <td>{{ user.location || '-' }}</td>
+              <td><span class="badge {{ getStatusClass(user.status) }}">{{ user.status || 'N/A' }}</span></td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

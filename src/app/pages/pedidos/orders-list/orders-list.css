@@ -1,0 +1,119 @@
+.orders-page { padding: var(--space-8) var(--container-padding); }
+
+.orders-header {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  margin-bottom: var(--space-6); flex-wrap: wrap; gap: var(--space-4);
+}
+.orders-header h1 {
+  display: flex; align-items: center; gap: var(--space-3);
+  font-size: 1.5rem; margin-bottom: var(--space-1);
+}
+.orders-header h1 .material-icons { color: var(--color-primary); }
+.orders-header p { color: var(--color-text-secondary); font-size: 0.9375rem; }
+
+/* Filter Tabs */
+.filter-tabs {
+  display: flex;
+  gap: var(--space-2);
+  margin-bottom: var(--space-6);
+  overflow-x: auto;
+  padding-bottom: var(--space-2);
+  -webkit-overflow-scrolling: touch;
+}
+
+.filter-tab {
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  background: var(--color-card);
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all var(--transition-base);
+}
+.filter-tab:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+.filter-tab.active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+}
+
+/* Order Cards */
+.orders-list { display: flex; flex-direction: column; gap: var(--space-4); }
+
+.order-card {
+  display: flex; align-items: center; gap: var(--space-5);
+  padding: var(--space-5); text-decoration: none; color: inherit;
+  cursor: pointer;
+}
+
+.order-icon-col { flex-shrink: 0; }
+.order-icon {
+  width: 52px; height: 52px; border-radius: var(--radius-md);
+  display: flex; align-items: center; justify-content: center;
+}
+.order-icon .material-icons { font-size: 26px; color: #fff; }
+.order-icon.status-confirmado { background: linear-gradient(135deg, #1565C0, #42A5F5); }
+.order-icon.status-preparacion { background: linear-gradient(135deg, #F57F17, #FFC107); }
+.order-icon.status-en_camino { background: linear-gradient(135deg, #2E7D32, #66BB6A); }
+.order-icon.status-entregado { background: linear-gradient(135deg, #1B5E20, #4CAF50); }
+.order-icon.status-cancelado { background: linear-gradient(135deg, #C62828, #EF5350); }
+
+.order-main { flex: 1; }
+
+.order-top-row {
+  display: flex; align-items: center; gap: var(--space-3);
+  margin-bottom: var(--space-2);
+}
+.order-top-row h3 { font-size: 1.0625rem; margin: 0; }
+
+.order-meta {
+  display: flex; gap: var(--space-4); flex-wrap: wrap;
+  font-size: 0.8125rem; color: var(--color-text-secondary);
+  margin-bottom: var(--space-3);
+}
+.order-meta span { display: flex; align-items: center; gap: 4px; }
+.order-meta .material-icons { font-size: 15px; }
+
+/* Mini Timeline */
+.order-timeline-mini { display: flex; align-items: center; gap: 0; }
+.mini-step { display: flex; align-items: center; }
+.mini-dot {
+  width: 10px; height: 10px; border-radius: var(--radius-full);
+  background: var(--color-border); transition: background var(--transition-base);
+}
+.mini-step.completed .mini-dot { background: var(--color-primary); }
+.mini-line { width: 32px; height: 2px; background: var(--color-border); }
+.mini-step.completed .mini-line { background: var(--color-primary); }
+
+/* Total Column */
+.order-total-col {
+  display: flex; flex-direction: column; align-items: flex-end;
+  gap: var(--space-1); flex-shrink: 0;
+}
+.order-total {
+  font-size: 1.25rem; font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+}
+.order-delivery { font-size: 0.75rem; color: var(--color-text-secondary); }
+.view-order-link {
+  display: flex; align-items: center; gap: 4px;
+  font-size: 0.8125rem; color: var(--color-primary);
+  font-weight: var(--font-weight-semibold);
+  opacity: 0; transform: translateX(-8px);
+  transition: all var(--transition-base);
+}
+.view-order-link .material-icons { font-size: 16px; }
+.order-card:hover .view-order-link { opacity: 1; transform: translateX(0); }
+
+@media (max-width: 767px) {
+  .order-card { flex-direction: column; align-items: flex-start; gap: var(--space-3); }
+  .order-total-col { flex-direction: row; width: 100%; justify-content: space-between; align-items: center; }
+  .view-order-link { opacity: 1; transform: none; }
+  .mini-line { width: 20px; }
+}

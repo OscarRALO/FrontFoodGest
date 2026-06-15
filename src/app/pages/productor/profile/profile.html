@@ -1,0 +1,97 @@
+@if (!producer) {
+  <div class="empty-state" style="padding: var(--space-20)">
+    <span class="material-icons">person_off</span>
+    <h3>Productor no encontrado</h3>
+    <a routerLink="/marketplace" class="btn btn-primary">Volver al Marketplace</a>
+  </div>
+} @else {
+  <div class="profile-page">
+    <div class="profile-hero">
+      <div class="container">
+        <div class="profile-header">
+          <div class="profile-avatar">{{ producer.name.charAt(0) }}</div>
+          <div class="profile-info">
+            <h1>{{ producer.name }}</h1>
+            <div class="profile-meta">
+              <span><span class="material-icons">location_on</span> {{ producer.location }}</span>
+              <span><span class="material-icons">calendar_today</span> Miembro desde {{ producer.since }}</span>
+              <span class="profile-rating">
+                <span class="material-icons" style="color: var(--color-accent)">star</span>
+                {{ producer.rating }} · {{ producer.totalSales }} ventas
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container profile-content">
+      <div class="profile-grid">
+        <div class="profile-main">
+          <section class="profile-section">
+            <h2>Sobre el Productor</h2>
+            <p>{{ producer.bio }}</p>
+          </section>
+
+          <section class="profile-section">
+            <h2>Productos ({{ products.length }})</h2>
+            <div class="producer-products-grid">
+              @for (product of products; track product.id) {
+                <app-product-card [product]="product" />
+              }
+            </div>
+            @if (products.length === 0) {
+              <div class="empty-state">
+                <span class="material-icons">inventory_2</span>
+                <p>Este productor aún no tiene productos publicados.</p>
+              </div>
+            }
+          </section>
+
+          <section class="profile-section">
+            <h2>Reseñas ({{ reviews.length }})</h2>
+            @for (review of reviews; track review.id) {
+              <div class="review-item">
+                <div class="review-top">
+                  <div class="review-avatar">{{ review.userName.charAt(0) }}</div>
+                  <div>
+                    <strong>{{ review.userName }}</strong>
+                    <span class="review-date">{{ review.date }}</span>
+                  </div>
+                  <div class="stars" style="margin-left: auto">
+                    @for (_ of getStars(review.rating); track $index) {
+                      <span class="material-icons" style="font-size:16px">star</span>
+                    }
+                  </div>
+                </div>
+                <p>{{ review.comment }}</p>
+              </div>
+            }
+          </section>
+        </div>
+
+        <aside class="profile-sidebar">
+          <div class="sidebar-card card">
+            <h3>Contacto</h3>
+            <div class="contact-info">
+              <div><span class="material-icons">phone</span> {{ producer.phone }}</div>
+              <div><span class="material-icons">email</span> {{ producer.email }}</div>
+              <div><span class="material-icons">location_on</span> {{ producer.location }}</div>
+            </div>
+            <button class="btn btn-primary" style="width:100%; margin-top: var(--space-4)">
+              <span class="material-icons">chat</span> Contactar
+            </button>
+          </div>
+
+          <div class="sidebar-card card">
+            <h3>Ubicación</h3>
+            <div class="map-placeholder">
+              <span class="material-icons">map</span>
+              <span>{{ producer.location }}</span>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+}

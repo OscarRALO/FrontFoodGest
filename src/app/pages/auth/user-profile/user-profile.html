@@ -1,0 +1,164 @@
+@if (authService.currentUser(); as user) {
+  <div class="profile-page">
+    <div class="profile-hero-banner">
+      <div class="container">
+        <div class="profile-hero-content">
+          <div class="profile-big-avatar">
+            {{ user.name.charAt(0) }}
+          </div>
+          <div class="profile-hero-info">
+            <h1>{{ user.name }}</h1>
+            <div class="profile-role-badge badge" [class.badge-success]="user.role === 'productor'" [class.badge-info]="user.role === 'comprador'" [class.badge-warning]="user.role === 'admin'">
+              {{ user.role === 'productor' ? '🌾 Productor' : user.role === 'comprador' ? '🏪 Comprador' : '⚙️ Administrador' }}
+            </div>
+            <p class="profile-hero-email">{{ user.email }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container profile-body">
+      @if (saved) {
+        <div class="alert-success-bar">
+          <span class="material-icons">check_circle</span>
+          Perfil actualizado correctamente
+        </div>
+      }
+
+      <div class="profile-grid">
+        <div class="profile-main-col">
+          <!-- Personal Info Card -->
+          <div class="info-card card">
+            <div class="card-header">
+              <h2><span class="material-icons">person</span> Información Personal</h2>
+              @if (!editing) {
+                <button class="btn btn-secondary btn-sm" (click)="startEditing()">
+                  <span class="material-icons">edit</span> Editar
+                </button>
+              }
+            </div>
+
+            @if (editing) {
+              <form (ngSubmit)="saveProfile()" class="edit-form">
+                <div class="form-group">
+                  <label class="form-label">Nombre completo</label>
+                  <input class="form-input" [(ngModel)]="editName" name="editName" />
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Correo electrónico</label>
+                  <input class="form-input" [(ngModel)]="editEmail" name="editEmail" type="email" />
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Teléfono</label>
+                  <input class="form-input" [(ngModel)]="editPhone" name="editPhone" type="tel" />
+                </div>
+                <div class="form-actions">
+                  <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                  <button type="button" class="btn btn-secondary" (click)="cancelEditing()">Cancelar</button>
+                </div>
+              </form>
+            } @else {
+              <div class="info-grid">
+                <div class="info-item">
+                  <span class="info-label">Nombre</span>
+                  <span class="info-value">{{ user.name }}</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Correo electrónico</span>
+                  <span class="info-value">{{ user.email }}</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Teléfono</span>
+                  <span class="info-value">{{ user.phone || 'No registrado' }}</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Rol</span>
+                  <span class="info-value">{{ user.role | titlecase }}</span>
+                </div>
+                @if (user.location) {
+                  <div class="info-item">
+                    <span class="info-label">Ubicación</span>
+                    <span class="info-value">{{ user.location }}</span>
+                  </div>
+                }
+                @if (user.company) {
+                  <div class="info-item">
+                    <span class="info-label">Empresa</span>
+                    <span class="info-value">{{ user.company }}</span>
+                  </div>
+                }
+                @if (user.status) {
+                  <div class="info-item">
+                    <span class="info-label">Estado de cuenta</span>
+                    <span class="badge" [class.badge-success]="user.status === 'activo'" [class.badge-warning]="user.status === 'pendiente'">
+                      {{ user.status | titlecase }}
+                    </span>
+                  </div>
+                }
+              </div>
+            }
+          </div>
+
+          <!-- Security Card -->
+          <div class="info-card card">
+            <div class="card-header">
+              <h2><span class="material-icons">security</span> Seguridad</h2>
+            </div>
+            <div class="security-section">
+              <div class="security-item">
+                <div>
+                  <strong>Contraseña</strong>
+                  <p>Última actualización hace 30 días</p>
+                </div>
+                <button class="btn btn-secondary btn-sm">Cambiar</button>
+              </div>
+              <div class="security-item">
+                <div>
+                  <strong>Autenticación de dos factores</strong>
+                  <p>Protege tu cuenta con verificación adicional</p>
+                </div>
+                <button class="btn btn-secondary btn-sm">Activar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="profile-sidebar-col">
+          <div class="quick-links card">
+            <h3>Accesos Rápidos</h3>
+            <a routerLink="/pedidos" class="quick-link">
+              <span class="material-icons">receipt_long</span>
+              <span>Mis Pedidos</span>
+              <span class="material-icons arrow">chevron_right</span>
+            </a>
+            <a routerLink="/carrito" class="quick-link">
+              <span class="material-icons">shopping_cart</span>
+              <span>Mi Carrito</span>
+              <span class="material-icons arrow">chevron_right</span>
+            </a>
+            @if (authService.isProductor()) {
+              <a routerLink="/dashboard" class="quick-link">
+                <span class="material-icons">dashboard</span>
+                <span>Mi Dashboard</span>
+                <span class="material-icons arrow">chevron_right</span>
+              </a>
+            }
+            <a routerLink="/marketplace" class="quick-link">
+              <span class="material-icons">storefront</span>
+              <span>Marketplace</span>
+              <span class="material-icons arrow">chevron_right</span>
+            </a>
+          </div>
+
+          <div class="danger-zone card">
+            <h3>Zona de Peligro</h3>
+            <button class="btn btn-sm" style="background:#FFEBEE; color:var(--color-error); width:100%;" (click)="logout()">
+              <span class="material-icons">logout</span> Cerrar Sesión
+            </button>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+}

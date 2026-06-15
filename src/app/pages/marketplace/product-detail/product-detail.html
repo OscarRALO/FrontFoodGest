@@ -1,0 +1,183 @@
+@if (loading) {
+  <div class="detail-page container">
+    <div class="detail-grid">
+      <div class="skeleton" style="height:400px; border-radius:var(--radius-lg)"></div>
+      <div>
+        <div class="skeleton skeleton-title" style="width:80%"></div>
+        <div class="skeleton skeleton-text"></div>
+        <div class="skeleton skeleton-text" style="width:60%"></div>
+      </div>
+    </div>
+  </div>
+} @else if (!product) {
+  <div class="empty-state" style="padding: var(--space-20)">
+    <span class="material-icons">error_outline</span>
+    <h3>Producto no encontrado</h3>
+    <p>El producto que buscas no existe o fue eliminado.</p>
+    <a routerLink="/marketplace" class="btn btn-primary">Volver al Marketplace</a>
+  </div>
+} @else {
+  <div class="detail-page">
+    <div class="container">
+      <!-- Breadcrumb -->
+      <nav class="breadcrumb">
+        <a routerLink="/">Inicio</a>
+        <span class="material-icons">chevron_right</span>
+        <a routerLink="/marketplace">Marketplace</a>
+        <span class="material-icons">chevron_right</span>
+        <span>{{ product.name }}</span>
+      </nav>
+
+      <div class="detail-grid">
+        <!-- Gallery -->
+        <div class="gallery">
+          <div class="gallery-main">
+            <div class="image-placeholder">
+              <span class="material-icons">image</span>
+              <span>{{ product.name }}</span>
+            </div>
+            @if (product.organic) {
+              <span class="organic-tag"><span class="material-icons">eco</span> Orgánico</span>
+            }
+          </div>
+          <div class="gallery-thumbs">
+            @for (i of [0,1,2,3]; track i) {
+              <div class="thumb" [class.active]="selectedImageIndex === i" (click)="selectedImageIndex = i">
+                <span class="material-icons">image</span>
+              </div>
+            }
+          </div>
+        </div>
+
+        <!-- Product Info -->
+        <div class="product-info">
+          <span class="category-badge">{{ product.category }}</span>
+          <h1>{{ product.name }}</h1>
+
+          <div class="producer-link">
+            <span class="material-icons">person</span>
+            <a [routerLink]="['/productor', product.producerId]">{{ product.producerName }}</a>
+            <span class="dot">·</span>
+            <span class="material-icons" style="font-size:16px">location_on</span>
+            {{ product.producerLocation }}
+          </div>
+
+          <div class="rating-row">
+            <div class="stars">
+              @for (_ of getStars(product.rating); track $index) {
+                <span class="material-icons">star</span>
+              }
+              @for (_ of getEmptyStars(product.rating); track $index) {
+                <span class="material-icons">star_border</span>
+              }
+            </div>
+            <span>{{ product.rating }} ({{ product.reviewCount }} reseñas)</span>
+          </div>
+
+          <p class="description">{{ product.description }}</p>
+
+          <div class="harvest-info">
+            <span class="material-icons">event</span>
+            <span>Fecha de cosecha: <strong>{{ product.harvestDate }}</strong></span>
+            <span class="availability" [class.available]="product.available">
+              {{ product.available ? '✓ Disponible' : '✗ Agotado' }}
+            </span>
+          </div>
+
+          <!-- Price Tiers -->
+          <div class="price-tiers">
+            <h3>Precio por Volumen</h3>
+            <table class="tier-table">
+              <thead>
+                <tr><th>Cantidad</th><th>Precio / {{ product.unit }}</th></tr>
+              </thead>
+              <tbody>
+                @for (tier of product.priceTiers; track tier.minQty) {
+                  <tr [class.active]="quantity >= tier.minQty && quantity <= tier.maxQty">
+                    <td>{{ tier.minQty }} - {{ tier.maxQty === 9999 ? '∞' : tier.maxQty }} {{ product.unit }}</td>
+                    <td class="tier-price">S/ {{ tier.price.toFixed(2) }}</td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Add to Cart -->
+          <div class="cart-section">
+            <div class="quantity-control">
+              <button (click)="quantity = quantity > 1 ? quantity - 1 : 1" class="qty-btn">
+                <span class="material-icons">remove</span>
+              </button>
+              <input type="number" [(ngModel)]="quantity" min="1" class="qty-input" />
+              <button (click)="quantity = quantity + 1" class="qty-btn">
+                <span class="material-icons">add</span>
+              </button>
+              <span class="qty-unit">{{ product.unit }}</span>
+            </div>
+
+            <div class="price-total">
+              <span class="current-price">S/ {{ getCurrentPrice().toFixed(2) }}</span>
+              <span class="total-label">Total: <strong>S/ {{ (getCurrentPrice() * quantity).toFixed(2) }}</strong></span>
+            </div>
+
+            <button class="btn btn-primary btn-lg add-to-cart-btn" (click)="addToCart()" id="add-to-cart-btn">
+              @if (addedToCart) {
+                <span class="material-icons">check</span> ¡Agregado!
+              } @else {
+                <span class="material-icons">shopping_cart</span> Agregar al Carrito
+              }
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reviews -->
+      <section class="reviews-section">
+        <h2><span class="material-icons">rate_review</span> Reseñas ({{ reviews.length }})</h2>
+        @if (reviews.length === 0) {
+          <p class="no-reviews">Aún no hay reseñas para este producto.</p>
+        } @else {
+          <div class="reviews-list">
+            @for (review of reviews; track review.id) {
+              <div class="review-card card-flat">
+                <div class="review-header">
+                  <div class="review-avatar">{{ review.userName.charAt(0) }}</div>
+                  <div>
+                    <strong>{{ review.userName }}</strong>
+                    <span class="review-date">{{ review.date }}</span>
+                  </div>
+                  <div class="stars review-stars">
+                    @for (_ of getStars(review.rating); track $index) {
+                      <span class="material-icons">star</span>
+                    }
+                  </div>
+                </div>
+                <p class="review-comment">{{ review.comment }}</p>
+              </div>
+            }
+          </div>
+        }
+      </section>
+
+      <!-- Related Products -->
+      @if (relatedProducts.length > 0) {
+        <section class="related-section">
+          <h2>Productos Relacionados</h2>
+          <div class="related-grid">
+            @for (p of relatedProducts; track p.id) {
+              <a [routerLink]="['/producto', p.id]" class="related-card card">
+                <div class="related-image">
+                  <span class="material-icons">image</span>
+                </div>
+                <div class="related-info">
+                  <h4>{{ p.name }}</h4>
+                  <span class="related-price">S/ {{ p.price.toFixed(2) }} / {{ p.unit }}</span>
+                </div>
+              </a>
+            }
+          </div>
+        </section>
+      }
+    </div>
+  </div>
+}

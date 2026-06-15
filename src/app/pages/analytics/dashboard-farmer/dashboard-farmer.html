@@ -1,0 +1,94 @@
+<div class="dashboard-page container">
+  <div class="dashboard-header">
+    <div>
+      <h1>Dashboard Productor</h1>
+      <p>Resumen de tu actividad en AgroMarket</p>
+    </div>
+    <a routerLink="/marketplace" class="btn btn-primary">
+      <span class="material-icons">add</span> Nuevo Producto
+    </a>
+  </div>
+
+  <!-- KPIs -->
+  <div class="kpi-grid">
+    @for (kpi of kpis; track kpi.label) {
+      <div class="kpi-card card">
+        <div class="kpi-icon">
+          <span class="material-icons">{{ kpi.icon }}</span>
+        </div>
+        <div class="kpi-info">
+          <span class="kpi-label">{{ kpi.label }}</span>
+          <strong class="kpi-value">{{ kpi.value }}</strong>
+          <span class="kpi-change" [class.positive]="kpi.change > 0" [class.negative]="kpi.change < 0">
+            <span class="material-icons">{{ kpi.change > 0 ? 'arrow_upward' : 'arrow_downward' }}</span>
+            {{ kpi.change > 0 ? '+' : '' }}{{ kpi.change }}%
+          </span>
+        </div>
+      </div>
+    }
+  </div>
+
+  <div class="dashboard-grid">
+    <!-- Sales Chart -->
+    <div class="chart-card card">
+      <h3>Ventas Mensuales</h3>
+      <div class="bar-chart">
+        @for (month of monthlySales; track month.month) {
+          <div class="bar-col">
+            <div class="bar-value">S/ {{ month.sales }}</div>
+            <div class="bar" [style.height.%]="getBarHeight(month.sales)"></div>
+            <span class="bar-label">{{ month.month }}</span>
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- Product Ranking -->
+    <div class="ranking-card card">
+      <h3>Top Productos</h3>
+      <table class="ranking-table">
+        <thead>
+          <tr><th>#</th><th>Producto</th><th>Ventas</th><th>Ingresos</th><th>Tendencia</th></tr>
+        </thead>
+        <tbody>
+          @for (item of productRanking; track item.rank) {
+            <tr>
+              <td class="rank-num">{{ item.rank }}</td>
+              <td class="rank-name">{{ item.name }}</td>
+              <td>{{ item.sales }}</td>
+              <td class="rank-revenue">S/ {{ item.revenue }}</td>
+              <td>
+                <span class="trend {{ getTrendClass(item.trend) }}">
+                  <span class="material-icons">{{ getTrendIcon(item.trend) }}</span>
+                </span>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Recent Orders -->
+  <div class="orders-card card">
+    <div class="orders-header">
+      <h3>Pedidos Recientes</h3>
+    </div>
+    <table class="orders-table">
+      <thead>
+        <tr><th>Pedido</th><th>Comprador</th><th>Total</th><th>Fecha</th><th>Estado</th></tr>
+      </thead>
+      <tbody>
+        @for (order of recentOrders; track order.id) {
+          <tr>
+            <td><a [routerLink]="['/pedido', order.id]" class="order-link">#{{ order.id }}</a></td>
+            <td>{{ order.buyerName }}</td>
+            <td class="order-total">S/ {{ order.total.toFixed(2) }}</td>
+            <td>{{ order.createdAt }}</td>
+            <td><span class="badge {{ getStatusClass(order.status) }}">{{ order.statusLabel }}</span></td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
