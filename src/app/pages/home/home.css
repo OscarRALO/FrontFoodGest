@@ -336,3 +336,14 @@
   .team-grid { grid-template-columns: repeat(3, 1fr); }
   .products-grid { grid-template-columns: repeat(2, 1fr); }
 }
+
+.team-avatar {
+  overflow: hidden;
+}
+
+.team-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
