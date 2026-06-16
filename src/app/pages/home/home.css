@@ -1,109 +1,7 @@
-/* Hero Section */
-.hero {
-  position: relative;
-  min-height: 600px;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-}
+/* ===========================
+   Team Section
+=========================== */
 
-.hero-bg {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, #1B5E20 0%, #2E7D32 40%, #388E3C 70%, #43A047 100%);
-  z-index: 0;
-}
-.hero-bg::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-}
-
-.hero-content {
-  position: relative;
-  z-index: 1;
-  padding: var(--space-20) var(--container-padding);
-}
-
-.hero-text {
-  max-width: 700px;
-  color: #fff;
-}
-
-.team-avatar {
-  width: 120px;
-  height: 120px;
-  margin: auto;
-  overflow: hidden;
-  border-radius: 50%;
-}
-
-.team-avatar img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.hero-badge {
-  display: inline-block;
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(8px);
-  padding: var(--space-2) var(--space-4);
-  border-radius: var(--radius-xl);
-  font-size: 0.875rem;
-  font-weight: var(--font-weight-medium);
-  margin-bottom: var(--space-6);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.hero h1 {
-  font-size: 3.5rem;
-  font-weight: var(--font-weight-bold);
-  color: #fff;
-  line-height: 1.15;
-  margin-bottom: var(--space-5);
-}
-
-.text-highlight {
-  color: var(--color-accent);
-}
-
-.hero-subtitle {
-  font-size: 1.1875rem;
-  line-height: 1.7;
-  color: rgba(255, 255, 255, 0.85);
-  margin-bottom: var(--space-8);
-}
-
-.hero-actions {
-  display: flex;
-  gap: var(--space-4);
-  margin-bottom: var(--space-10);
-  flex-wrap: wrap;
-}
-
-.hero-stats {
-  display: flex;
-  gap: var(--space-8);
-  padding-top: var(--space-8);
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.hero-stat {
-  display: flex;
-  flex-direction: column;
-}
-.hero-stat strong {
-  font-size: 1.5rem;
-  font-weight: var(--font-weight-bold);
-}
-.hero-stat span {
-  font-size: 0.8125rem;
-  opacity: 0.75;
-}
-
-/* Team Section */
 .team-section {
   background: #fff;
 }
@@ -119,220 +17,89 @@
   padding: var(--space-8) var(--space-4);
 }
 
+/* Avatar con imagen */
 .team-avatar {
-  width: 100px;
-  height: 100px;
-  border-radius: var(--radius-full);
+  width: 120px;
+  height: 120px;
+
   margin: 0 auto var(--space-4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.75rem;
-  font-weight: var(--font-weight-bold);
-  color: #fff;
+
+  overflow: hidden;
+
+  border-radius: 50%;
+
   box-shadow: var(--shadow-md);
+
   transition: transform var(--transition-base);
 }
+
+.team-avatar img {
+  width: 100%;
+
+  height: 100%;
+
+  object-fit: cover;
+
+  display: block;
+}
+
 .team-card:hover .team-avatar {
   transform: scale(1.08);
 }
 
 .team-name {
   font-size: 1rem;
+
   font-weight: var(--font-weight-semibold);
+
   margin-bottom: var(--space-1);
 }
 
 .team-role {
   font-size: 0.8125rem;
+
   color: var(--color-text-secondary);
+
   margin-bottom: var(--space-3);
 }
 
 .team-social {
   display: flex;
+
   justify-content: center;
+
   gap: var(--space-3);
 }
+
 .team-social .material-icons {
   font-size: 20px;
+
   color: var(--color-text-secondary);
+
   cursor: pointer;
+
   transition: color var(--transition-base);
 }
+
 .team-social .material-icons:hover {
   color: var(--color-primary);
 }
 
-/* Benefits Section */
-.benefits-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-6);
-}
-
-.benefit-card {
-  padding: var(--space-8);
-  text-align: center;
-  transition: all var(--transition-base);
-}
-.benefit-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-md);
-}
-
-.benefit-icon {
-  width: 72px;
-  height: 72px;
-  border-radius: var(--radius-lg);
-  background: linear-gradient(135deg, #E8F5E9, #C8E6C9);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto var(--space-5);
-}
-.benefit-icon .material-icons {
-  font-size: 32px;
-  color: var(--color-primary);
-}
-
-.benefit-card h3 {
-  font-size: 1.1875rem;
-  margin-bottom: var(--space-3);
-}
-
-.benefit-card p {
-  font-size: 0.9375rem;
-  color: var(--color-text-secondary);
-  line-height: 1.7;
-}
-
-/* Steps Section */
-.steps-section {
-  background: #fff;
-}
-
-.steps-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-8);
-  position: relative;
-}
-.steps-grid::before {
-  content: '';
-  position: absolute;
-  top: 60px;
-  left: 20%;
-  right: 20%;
-  height: 2px;
-  background: linear-gradient(to right, var(--color-primary), var(--color-secondary));
-  z-index: 0;
-}
-
-.step-card {
-  text-align: center;
-  position: relative;
-  z-index: 1;
-}
-
-.step-number {
-  font-size: 0.75rem;
-  font-weight: var(--font-weight-bold);
-  color: var(--color-accent);
-  margin-bottom: var(--space-3);
-  letter-spacing: 2px;
-}
-
-.step-icon {
-  width: 80px;
-  height: 80px;
-  border-radius: var(--radius-full);
-  background: var(--color-primary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto var(--space-5);
-  box-shadow: 0 4px 20px rgba(46, 125, 50, 0.3);
-  transition: transform var(--transition-base);
-}
-.step-card:hover .step-icon {
-  transform: scale(1.1);
-}
-.step-icon .material-icons {
-  font-size: 32px;
-  color: #fff;
-}
-
-.step-card h3 {
-  font-size: 1.1875rem;
-  margin-bottom: var(--space-2);
-}
-
-.step-card p {
-  font-size: 0.9375rem;
-  color: var(--color-text-secondary);
-  max-width: 280px;
-  margin: 0 auto;
-  line-height: 1.6;
-}
-
-/* Featured Products */
-.products-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: var(--space-6);
-}
-
-/* CTA Section */
-.cta-section {
-  padding: var(--space-16) 0;
-}
-
-.cta-card {
-  background: linear-gradient(135deg, #1B5E20, #2E7D32, #388E3C);
-  border-radius: var(--radius-xl);
-  padding: var(--space-16) var(--space-10);
-  text-align: center;
-  color: #fff;
-}
-
-.cta-card h2 {
-  color: #fff;
-  font-size: 2rem;
-  margin-bottom: var(--space-4);
-}
-
-.cta-card p {
-  font-size: 1.0625rem;
-  opacity: 0.9;
-  max-width: 600px;
-  margin: 0 auto var(--space-8);
-  line-height: 1.7;
-}
-
-.cta-actions {
-  display: flex;
-  justify-content: center;
-  gap: var(--space-4);
-  flex-wrap: wrap;
-}
-
 /* Responsive */
+
 @media (max-width: 767px) {
-  .hero h1 { font-size: 2.25rem; }
-  .hero-subtitle { font-size: 1rem; }
-  .hero-stats { flex-wrap: wrap; gap: var(--space-4); }
-  .hero-stat strong { font-size: 1.25rem; }
-  .team-grid { grid-template-columns: repeat(2, 1fr); }
-  .benefits-grid { grid-template-columns: 1fr; }
-  .steps-grid { grid-template-columns: 1fr; gap: var(--space-6); }
-  .steps-grid::before { display: none; }
-  .products-grid { grid-template-columns: 1fr; }
-  .cta-card { padding: var(--space-10) var(--space-6); }
+  .team-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .team-avatar {
+    width: 90px;
+    height: 90px;
+  }
 }
 
 @media (min-width: 768px) and (max-width: 1279px) {
-  .hero h1 { font-size: 2.75rem; }
-  .team-grid { grid-template-columns: repeat(3, 1fr); }
-  .products-grid { grid-template-columns: repeat(2, 1fr); }
+  .team-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
