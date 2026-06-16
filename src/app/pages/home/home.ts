@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
     {
       name: 'Rodrigo',
       role: 'Frontend Developer',
-      image: 'assets/team/Rodrigo.png'
+      image: '/team/Rodrigo.png'
     },
     {
       name: 'Oscar',
