@@ -16,11 +16,31 @@ export class HomeComponent implements OnInit {
   loading = true;
 
   teamMembers = [
-    { name: 'Integrante 1', role: 'Frontend Developer', initials: 'I1', color: '#2E7D32' },
-    { name: 'Integrante 2', role: 'Backend Developer', initials: 'I2', color: '#66BB6A' },
-    { name: 'Integrante 3', role: 'UI/UX Designer', initials: 'I3', color: '#F9A825' },
-    { name: 'Integrante 4', role: 'Project Manager', initials: 'I4', color: '#4CAF50' },
-    { name: 'Integrante 5', role: 'QA Tester', initials: 'I5', color: '#1B5E20' }
+    {
+      name: 'Rodrigo',
+      role: 'Frontend Developer',
+      image: 'assets/team/Rodrigo.jpg'
+    },
+    {
+      name: 'Oscar',
+      role: 'Backend Developer',
+      image: 'assets/team/Oscar.jpg'
+    },
+    {
+      name: 'Leonardo',
+      role: 'UI/UX Designer',
+      image: 'assets/team/Leo.jpg'
+    },
+    {
+      name: 'Yhony',
+      role: 'Project Manager',
+      image: 'assets/team/Yhony.jpg'
+    },
+    {
+      name: 'Jadira',
+      role: 'QA Tester',
+      image: 'assets/team/Dina.jpg'
+    }
   ];
 
   stats = [
