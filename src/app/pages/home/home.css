@@ -1,6 +1,4 @@
-/* =============================================
-   HERO SECTION
-   ============================================= */
+/* Hero Section */
 .hero {
   position: relative;
   min-height: 600px;
@@ -15,7 +13,6 @@
   background: linear-gradient(135deg, #1B5E20 0%, #2E7D32 40%, #388E3C 70%, #43A047 100%);
   z-index: 0;
 }
-
 .hero-bg::after {
   content: '';
   position: absolute;
@@ -32,6 +29,20 @@
 .hero-text {
   max-width: 700px;
   color: #fff;
+}
+
+.team-avatar {
+  width: 120px;
+  height: 120px;
+  margin: auto;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.team-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .hero-badge {
@@ -83,20 +94,16 @@
   display: flex;
   flex-direction: column;
 }
-
 .hero-stat strong {
   font-size: 1.5rem;
   font-weight: var(--font-weight-bold);
 }
-
 .hero-stat span {
   font-size: 0.8125rem;
   opacity: 0.75;
 }
 
-/* =============================================
-   TEAM SECTION
-   ============================================= */
+/* Team Section */
 .team-section {
   background: #fff;
 }
@@ -112,32 +119,22 @@
   padding: var(--space-8) var(--space-4);
 }
 
-/* ✅ FIX: definición única y correcta del avatar */
 .team-avatar {
   width: 100px;
   height: 100px;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   margin: 0 auto var(--space-4);
-  overflow: hidden;           /* recorta la imagen al círculo */
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 1.75rem;
+  font-weight: var(--font-weight-bold);
+  color: #fff;
   box-shadow: var(--shadow-md);
   transition: transform var(--transition-base);
-  background-color: var(--color-primary); /* fallback si la imagen no carga */
 }
-
 .team-card:hover .team-avatar {
   transform: scale(1.08);
-}
-
-/* ✅ FIX: la imagen ocupa todo el contenedor sin deformarse */
-.team-avatar img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center top; /* prioriza la cara en vez del centro exacto */
-  display: block;
 }
 
 .team-name {
@@ -157,21 +154,17 @@
   justify-content: center;
   gap: var(--space-3);
 }
-
 .team-social .material-icons {
   font-size: 20px;
   color: var(--color-text-secondary);
   cursor: pointer;
   transition: color var(--transition-base);
 }
-
 .team-social .material-icons:hover {
   color: var(--color-primary);
 }
 
-/* =============================================
-   BENEFITS SECTION
-   ============================================= */
+/* Benefits Section */
 .benefits-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -183,7 +176,6 @@
   text-align: center;
   transition: all var(--transition-base);
 }
-
 .benefit-card:hover {
   transform: translateY(-4px);
   box-shadow: var(--shadow-md);
@@ -199,7 +191,6 @@
   justify-content: center;
   margin: 0 auto var(--space-5);
 }
-
 .benefit-icon .material-icons {
   font-size: 32px;
   color: var(--color-primary);
@@ -216,9 +207,7 @@
   line-height: 1.7;
 }
 
-/* =============================================
-   STEPS SECTION
-   ============================================= */
+/* Steps Section */
 .steps-section {
   background: #fff;
 }
@@ -229,7 +218,6 @@
   gap: var(--space-8);
   position: relative;
 }
-
 .steps-grid::before {
   content: '';
   position: absolute;
@@ -258,7 +246,7 @@
 .step-icon {
   width: 80px;
   height: 80px;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   background: var(--color-primary);
   display: flex;
   align-items: center;
@@ -267,11 +255,9 @@
   box-shadow: 0 4px 20px rgba(46, 125, 50, 0.3);
   transition: transform var(--transition-base);
 }
-
 .step-card:hover .step-icon {
   transform: scale(1.1);
 }
-
 .step-icon .material-icons {
   font-size: 32px;
   color: #fff;
@@ -290,18 +276,14 @@
   line-height: 1.6;
 }
 
-/* =============================================
-   FEATURED PRODUCTS
-   ============================================= */
+/* Featured Products */
 .products-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: var(--space-6);
 }
 
-/* =============================================
-   CTA SECTION
-   ============================================= */
+/* CTA Section */
 .cta-section {
   padding: var(--space-16) 0;
 }
@@ -335,9 +317,7 @@
   flex-wrap: wrap;
 }
 
-/* =============================================
-   RESPONSIVE
-   ============================================= */
+/* Responsive */
 @media (max-width: 767px) {
   .hero h1 { font-size: 2.25rem; }
   .hero-subtitle { font-size: 1rem; }
